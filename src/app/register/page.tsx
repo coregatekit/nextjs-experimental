@@ -76,13 +76,34 @@ export default function Register() {
                   <Input
                     placeholder={RegisterScreenLabel.placeholder.username}
                     {...field}
-                    className='w-2/3'
                   />
-                  <Button type='button' onClick={handleClickCheckUser}>
+                  <Button
+                    type='button'
+                    onClick={handleClickCheckUser}
+                  >
                     {RegisterScreenLabel.button.checkUser}
                   </Button>
                 </div>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Password */}
+          <FormField
+            control={control}
+            name='password'
+            render={({ field }) => (
+              <FormItem className='flex flex-col gap-2'>
+                <FormLabel>{RegisterScreenLabel.password}</FormLabel>
+                <div className='flex'>
+                  <Input
+                    type='password'
+                    placeholder={RegisterScreenLabel.placeholder.password}
+                    {...field}
+                  />
+                  <FormMessage />
+                </div>
               </FormItem>
             )}
           />
