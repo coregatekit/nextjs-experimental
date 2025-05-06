@@ -15,6 +15,7 @@ import {
 import RegisterScreenLabel from './label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
 
 export default function Register() {
   const form = useForm<z.infer<typeof registerFormSchema>>({
@@ -41,7 +42,16 @@ export default function Register() {
         type: 'manual',
         message: RegisterScreenLabel.message.existUser,
       })
+      toast.error('Error', {
+        description: RegisterScreenLabel.message.existUser,
+        position: 'top-right',
+      })
+      return
     }
+    toast.success('Success', {
+      description: RegisterScreenLabel.message.validUser,
+      position: 'top-right',
+    })
   }
 
   return (
@@ -68,7 +78,9 @@ export default function Register() {
                     {...field}
                     className='w-2/3'
                   />
-                  <Button type="button" onClick={handleClickCheckUser}>{RegisterScreenLabel.button.checkUser}</Button>
+                  <Button type='button' onClick={handleClickCheckUser}>
+                    {RegisterScreenLabel.button.checkUser}
+                  </Button>
                 </div>
                 <FormMessage />
               </FormItem>
