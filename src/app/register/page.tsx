@@ -117,6 +117,25 @@ export default function Register() {
               </FormItem>
             )}
           />
+
+          {/* Confirm Password */}
+          <FormField
+            control={control}
+            name='confirmPassword'
+            render={({ field }) => (
+              <FormItem className='flex flex-col gap-2'>
+                <FormLabel>{RegisterScreenLabel.confirmPassword}</FormLabel>
+                <div className='flex'>
+                  <Input
+                    type='password'
+                    placeholder={RegisterScreenLabel.placeholder.confirmPassword}
+                    {...field}
+                  />
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
         </form>
       </Form>
     </div>
