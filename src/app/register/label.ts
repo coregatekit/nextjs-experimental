@@ -17,6 +17,7 @@ const RegisterScreenLabel = {
     register: 'Register',
   },
   message: {
+    emptyFieldUsername: 'Username is required',
     existUser: 'Username already taken',
     validUser: 'Username is available',
   }

@@ -30,14 +30,23 @@ export default function Register() {
     },
   })
 
-  const { control, handleSubmit, watch, setError } = form
+  const { control, handleSubmit, watch, setError, clearErrors } = form
+
+  const username = watch('username')
 
   const onSubmit = (data: z.infer<typeof registerFormSchema>) => {
     console.log('data', data)
   }
 
   const handleClickCheckUser = () => {
-    if (watch('username') === 'aerichandesu') {
+    if (!username) {
+      setError('username', {
+        type: 'manual',
+        message: RegisterScreenLabel.message.emptyFieldUsername,
+      })
+      return
+    }
+    if (username === 'aerichandesu') {
       setError('username', {
         type: 'manual',
         message: RegisterScreenLabel.message.existUser,
@@ -48,6 +57,7 @@ export default function Register() {
       })
       return
     }
+    clearErrors('username')
     toast.success('Success', {
       description: RegisterScreenLabel.message.validUser,
       position: 'top-right',
