@@ -23,6 +23,7 @@ const RegisterScreenLabel = {
     existUser: 'Username already taken',
     validUser: 'Username is available',
     pleaseCheckUser: 'Please verify your username before registering',
+    registerSuccess: 'Registration successful!',
   }
 }
 

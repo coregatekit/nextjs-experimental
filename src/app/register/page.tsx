@@ -32,7 +32,7 @@ export default function Register() {
       verifyCode: '',
     },
   })
-  const { control, handleSubmit, watch, setError, clearErrors } = form
+  const { control, handleSubmit, watch, setError, clearErrors, reset } = form
 
   const [isCheckUserPassed, setIsCheckUserPassed] = useState<boolean>(false)
 
@@ -50,7 +50,15 @@ export default function Register() {
       })
       return
     }
-    console.log('data', data)
+
+    console.log('Form submitted:', data)
+    reset()
+    setIsCheckUserPassed(false)
+    toast.success('Success', {
+      description: RegisterScreenLabel.message.registerSuccess,
+      position: 'top-right',
+    })
+
   }
 
   const handleClickCheckUser = () => {
