@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { EnumSex } from '../enums/sex'
+import { useRouter } from 'next/navigation'
 
 export default function Register() {
   const form = useForm<z.infer<typeof registerFormSchema>>({
@@ -33,6 +34,7 @@ export default function Register() {
     },
   })
   const { control, handleSubmit, watch, setError, clearErrors, reset } = form
+  const navigate = useRouter()
 
   const [isCheckUserPassed, setIsCheckUserPassed] = useState<boolean>(false)
 
@@ -58,7 +60,7 @@ export default function Register() {
       description: RegisterScreenLabel.message.registerSuccess,
       position: 'top-right',
     })
-
+    navigate.replace('/')
   }
 
   const handleClickCheckUser = () => {
