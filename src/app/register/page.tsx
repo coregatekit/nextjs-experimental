@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import type { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -32,12 +32,24 @@ export default function Register() {
       verifyCode: '',
     },
   })
-
   const { control, handleSubmit, watch, setError, clearErrors } = form
+
+  const [isCheckUserPassed, setIsCheckUserPassed] = useState<boolean>(false)
 
   const username = watch('username')
 
   const onSubmit = (data: z.infer<typeof registerFormSchema>) => {
+    if (!isCheckUserPassed) {
+      setError('username', {
+        type: 'manual',
+        message: RegisterScreenLabel.message.pleaseCheckUser,
+      })
+      toast.error('Error', {
+        description: RegisterScreenLabel.message.pleaseCheckUser,
+        position: 'top-right',
+      })
+      return
+    }
     console.log('data', data)
   }
 
@@ -65,6 +77,7 @@ export default function Register() {
       description: RegisterScreenLabel.message.validUser,
       position: 'top-right',
     })
+    setIsCheckUserPassed(true)
   }
 
   return (

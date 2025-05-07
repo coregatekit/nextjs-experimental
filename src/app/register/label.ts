@@ -22,6 +22,7 @@ const RegisterScreenLabel = {
     emptyFieldUsername: 'Username is required',
     existUser: 'Username already taken',
     validUser: 'Username is available',
+    pleaseCheckUser: 'Please verify your username before registering',
   }
 }
 
