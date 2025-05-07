@@ -151,7 +151,7 @@ export default function Register() {
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className=''
+                      className='flex flex-row'
                     >
                       <FormItem className='flex'>
                         <FormControl>
@@ -203,6 +203,24 @@ export default function Register() {
                 <div className='flex'>
                   <Input
                     placeholder={RegisterScreenLabel.placeholder.email}
+                    {...field}
+                  />
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
+
+          {/* Verify Code */}
+          <FormField
+            control={control}
+            name='verifyCode'
+            render={({ field }) => (
+              <FormItem className='flex flex-col gap-2'>
+                <FormLabel>{RegisterScreenLabel.verifyCode}</FormLabel>
+                <div className='flex'>
+                  <Input
+                    placeholder={RegisterScreenLabel.placeholder.verifyCode}
                     {...field}
                   />
                   <FormMessage />
