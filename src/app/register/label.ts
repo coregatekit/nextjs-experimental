@@ -17,6 +17,7 @@ const RegisterScreenLabel = {
   button: {
     checkUser: 'Check Username',
     register: 'Register',
+    refreshCaptcha: 'Refresh',
   },
   message: {
     emptyFieldUsername: 'Username is required',

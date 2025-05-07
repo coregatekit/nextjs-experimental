@@ -123,9 +123,9 @@ export default function Register() {
       const ctx = canvas.getContext('2d')
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        ctx.font = '24px Arial'
+        ctx.font = '20px Arial'
         ctx.fillStyle = '#000'
-        ctx.fillText(captcha, 10, 30)
+        ctx.fillText(captcha, 7, 18)
       }
     }
   }
@@ -273,6 +273,19 @@ export default function Register() {
               </FormItem>
             )}
           />
+
+          {/* Captcha */}
+          <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-2'>
+              <canvas
+                ref={captchaCanvasRef}
+                width={100}
+                height={20}
+                className='rounded border bg-gray-200'
+              />
+            </div>
+            <Button type='button' onClick={regenerateCaptcha} className='w-1/3'>{RegisterScreenLabel.button.refreshCaptcha}</Button>
+          </div>
 
           {/* Verify Code */}
           <FormField
