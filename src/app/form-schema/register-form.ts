@@ -14,7 +14,7 @@ const registerFormSchema: ZodType<RegisterForm> = z.object({
     .min(6, { message: 'Confirm password must be at least 6 characters long' }),
   sex: z.enum(
     [EnumSex.Male, EnumSex.Female, EnumSex.Other, EnumSex.PreferNotToSay],
-    { required_error: 'Sex is required' },
+    { required_error: 'Sex is required', message: 'Please select your sex' },
   ),
   email: z
     .string({ required_error: 'Email is required' })
