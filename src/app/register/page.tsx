@@ -192,6 +192,24 @@ export default function Register() {
               </FormItem>
             )}
           />
+
+          {/* Email */}
+          <FormField
+            control={control}
+            name='email'
+            render={({ field }) => (
+              <FormItem className='flex flex-col gap-2'>
+                <FormLabel>{RegisterScreenLabel.email}</FormLabel>
+                <div className='flex'>
+                  <Input
+                    placeholder={RegisterScreenLabel.placeholder.email}
+                    {...field}
+                  />
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
         </form>
       </Form>
     </div>
