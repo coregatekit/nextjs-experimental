@@ -228,6 +228,10 @@ export default function Register() {
               </FormItem>
             )}
           />
+
+          <Button type='submit' className='w-full'>
+            {RegisterScreenLabel.button.register}
+          </Button>
         </form>
       </Form>
     </div>
