@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { registerFormSchema } from '../form-schema/register-form'
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
@@ -16,6 +17,8 @@ import RegisterScreenLabel from './label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { EnumSex } from '../enums/sex'
 
 export default function Register() {
   const form = useForm<z.infer<typeof registerFormSchema>>({
@@ -87,10 +90,7 @@ export default function Register() {
                     placeholder={RegisterScreenLabel.placeholder.username}
                     {...field}
                   />
-                  <Button
-                    type='button'
-                    onClick={handleClickCheckUser}
-                  >
+                  <Button type='button' onClick={handleClickCheckUser}>
                     {RegisterScreenLabel.button.checkUser}
                   </Button>
                 </div>
@@ -128,9 +128,65 @@ export default function Register() {
                 <div className='flex'>
                   <Input
                     type='password'
-                    placeholder={RegisterScreenLabel.placeholder.confirmPassword}
+                    placeholder={
+                      RegisterScreenLabel.placeholder.confirmPassword
+                    }
                     {...field}
                   />
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
+
+          {/* Sex */}
+          <FormField
+            control={control}
+            name='sex'
+            render={({ field }) => (
+              <FormItem className='flex flex-col gap-2'>
+                <FormLabel>{RegisterScreenLabel.sex}</FormLabel>
+                <div className='flex'>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className=''
+                    >
+                      <FormItem className='flex'>
+                        <FormControl>
+                          <RadioGroupItem value={EnumSex.Male} />
+                        </FormControl>
+                        <FormLabel className='font-normal'>
+                          {EnumSex.Male}
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className='flex'>
+                        <FormControl>
+                          <RadioGroupItem value={EnumSex.Female} />
+                        </FormControl>
+                        <FormLabel className='font-normal'>
+                          {EnumSex.Female}
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className='flex'>
+                        <FormControl>
+                          <RadioGroupItem value={EnumSex.Other} />
+                        </FormControl>
+                        <FormLabel className='font-normal'>
+                          {EnumSex.Other}
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className='flex'>
+                        <FormControl>
+                          <RadioGroupItem value={EnumSex.PreferNotToSay} />
+                        </FormControl>
+                        <FormLabel className='font-normal'>
+                          {EnumSex.PreferNotToSay}
+                        </FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
                   <FormMessage />
                 </div>
               </FormItem>

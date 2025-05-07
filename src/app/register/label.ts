@@ -5,6 +5,7 @@ const RegisterScreenLabel = {
   email: 'Email Address',
   password: 'Password',
   confirmPassword: 'Confirm Password',
+  sex: 'Sex',
   placeholder: {
     username: 'Enter your username',
     email: 'Enter your email address',
