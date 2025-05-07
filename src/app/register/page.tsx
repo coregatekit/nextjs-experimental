@@ -68,7 +68,7 @@ export default function Register() {
   }
 
   return (
-    <div className='mt-16 flex flex-col items-center justify-center'>
+    <div className='my-16 flex flex-col items-center justify-center'>
       <div>{RegisterScreenLabel.title}</div>
       <div>{RegisterScreenLabel.subtitle}</div>
 
@@ -112,8 +112,8 @@ export default function Register() {
                     placeholder={RegisterScreenLabel.placeholder.password}
                     {...field}
                   />
-                  <FormMessage />
                 </div>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -133,8 +133,8 @@ export default function Register() {
                     }
                     {...field}
                   />
-                  <FormMessage />
                 </div>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -187,8 +187,8 @@ export default function Register() {
                       </FormItem>
                     </RadioGroup>
                   </FormControl>
-                  <FormMessage />
                 </div>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -205,8 +205,8 @@ export default function Register() {
                     placeholder={RegisterScreenLabel.placeholder.email}
                     {...field}
                   />
-                  <FormMessage />
                 </div>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -223,8 +223,8 @@ export default function Register() {
                     placeholder={RegisterScreenLabel.placeholder.verifyCode}
                     {...field}
                   />
-                  <FormMessage />
                 </div>
+                <FormMessage />
               </FormItem>
             )}
           />
