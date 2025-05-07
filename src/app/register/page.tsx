@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import type { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -20,6 +20,7 @@ import { toast } from 'sonner'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { EnumSex } from '../enums/sex'
 import { useRouter } from 'next/navigation'
+import { generateCaptcha } from '@/lib/generators'
 
 export default function Register() {
   const form = useForm<z.infer<typeof registerFormSchema>>({
@@ -37,8 +38,15 @@ export default function Register() {
   const navigate = useRouter()
 
   const [isCheckUserPassed, setIsCheckUserPassed] = useState<boolean>(false)
+  const [captchaCode, setCaptchaCode] = useState<string>(generateCaptcha())
+  const captchaCanvasRef = useRef<HTMLCanvasElement>(null)
 
   const username = watch('username')
+  const verifyCode = watch('verifyCode')
+
+  useEffect(() => {
+    drawCaptcha(captchaCode)
+  }, [captchaCode])
 
   const onSubmit = (data: z.infer<typeof registerFormSchema>) => {
     if (!isCheckUserPassed) {
@@ -50,6 +58,19 @@ export default function Register() {
         description: RegisterScreenLabel.message.pleaseCheckUser,
         position: 'top-right',
       })
+      return
+    }
+
+    if (verifyCode !== captchaCode) {
+      setError('verifyCode', {
+        type: 'manual',
+        message: RegisterScreenLabel.message.invalidCaptcha,
+      })
+      toast.error('Error', {
+        description: RegisterScreenLabel.message.invalidCaptcha,
+        position: 'top-right',
+      })
+      regenerateCaptcha()
       return
     }
 
@@ -88,6 +109,25 @@ export default function Register() {
       position: 'top-right',
     })
     setIsCheckUserPassed(true)
+  }
+
+  const regenerateCaptcha = () => {
+    const newCaptchaCode = generateCaptcha()
+    setCaptchaCode(newCaptchaCode)
+    drawCaptcha(newCaptchaCode)
+  }
+
+  const drawCaptcha = (captcha: string) => {
+    const canvas = captchaCanvasRef.current
+    if (canvas) {
+      const ctx = canvas.getContext('2d')
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.font = '24px Arial'
+        ctx.fillStyle = '#000'
+        ctx.fillText(captcha, 10, 30)
+      }
+    }
   }
 
   return (

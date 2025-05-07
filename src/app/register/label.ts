@@ -24,6 +24,7 @@ const RegisterScreenLabel = {
     validUser: 'Username is available',
     pleaseCheckUser: 'Please verify your username before registering',
     registerSuccess: 'Registration successful!',
+    invalidCaptcha: 'Invalid verification code, please try again',
   }
 }
 
