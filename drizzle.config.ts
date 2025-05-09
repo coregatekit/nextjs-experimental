@@ -5,5 +5,6 @@ export default defineConfig({
   schema: './src/db/schema.ts',
   dbCredentials: {
     url: process.env.DB_FILE_NAME || 'file:./mmo.db',
-  }
+  },
+  out: './drizzle',
 });
