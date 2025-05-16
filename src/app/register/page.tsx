@@ -21,6 +21,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { EnumSex } from '../enums/sex'
 import { useRouter } from 'next/navigation'
 import { generateCaptcha } from '@/lib/generators'
+import useRegister from './hooks/use-register'
 
 export default function Register() {
   const form = useForm<z.infer<typeof registerFormSchema>>({
@@ -35,6 +36,7 @@ export default function Register() {
     },
   })
   const { control, handleSubmit, watch, setError, clearErrors, reset } = form
+  const { signup } = useRegister()
   const navigate = useRouter()
 
   const [isCheckUserPassed, setIsCheckUserPassed] = useState<boolean>(false)
@@ -74,14 +76,25 @@ export default function Register() {
       return
     }
 
-    console.log('Form submitted:', data)
-    reset()
-    setIsCheckUserPassed(false)
-    toast.success('Success', {
-      description: RegisterScreenLabel.message.registerSuccess,
-      position: 'top-right',
-    })
-    navigate.replace('/')
+    signup.mutate(
+      {
+        username: data.username,
+        password: data.password,
+        email: data.email,
+        sex: data.sex,
+      },
+      {
+        onSuccess: () => {
+          toast.success('Success', {
+            description: RegisterScreenLabel.message.registerSuccess,
+            position: 'top-right',
+          })
+          reset()
+          setIsCheckUserPassed(false)
+          navigate.replace('/')
+        },
+      },
+    )
   }
 
   const handleClickCheckUser = () => {
@@ -284,7 +297,9 @@ export default function Register() {
                 className='rounded border bg-gray-200'
               />
             </div>
-            <Button type='button' onClick={regenerateCaptcha} className='w-1/3'>{RegisterScreenLabel.button.refreshCaptcha}</Button>
+            <Button type='button' onClick={regenerateCaptcha} className='w-1/3'>
+              {RegisterScreenLabel.button.refreshCaptcha}
+            </Button>
           </div>
 
           {/* Verify Code */}
