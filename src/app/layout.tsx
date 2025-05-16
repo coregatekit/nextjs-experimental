@@ -1,4 +1,3 @@
-import '../../env-config'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
@@ -44,9 +43,7 @@ export default function RootLayout({
             <div className='pt-16'>{children}</div>
             <Toaster />
           </ThemeProvider>
-          {process.env.NODE_ENV === 'development' && (
-            <ReactQueryDevtools initialIsOpen={false} />
-          )}
+          <ReactQueryDevtools initialIsOpen={false} />
         </ReactQueryClientProvider>
       </body>
     </html>
