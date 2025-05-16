@@ -1,10 +1,29 @@
+'use client'
+
+import { Button } from '@/components/ui/button'
+import { Check, ClipboardCopy } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function Contact() {
+  const btcAddress = 'bc1qj0t7sxyuq80gchq2w3d5la9ly5tc7cmwnppfqw'
+  const evmAddress = '0x9Cb226AA0F857F1ED562577e9Fe015d0C45d210a'
+  const solAddress = 'Hbt7UoZnZo4iYEoWbVLWrnPMRiYzSK7ACjWKcXhev5CX'
+  const [isCopiedBtc, setIsCopiedBtc] = useState(false)
+  const [isCopiedEvm, setIsCopiedEvm] = useState(false)
+  const [isCopiedSol, setIsCopiedSol] = useState(false)
+
+  const handleCopyBtc = () => {
+    navigator.clipboard.writeText(btcAddress)
+    setIsCopiedBtc(true)
+    setTimeout(() => {
+      setIsCopiedBtc(false)
+    }, 2000)
+  }
+
   return (
-    <div className='flex h-96 w-full items-center justify-center'>
+    <div className='mt-16 flex w-full items-center justify-center'>
       <div className='flex w-2/3 flex-col items-center justify-center gap-4'>
         <h1 className='text-4xl font-bold'>Contact</h1>
         <p className='text-2xl font-semibold'>Joe Kim</p>
@@ -35,9 +54,37 @@ export default function Contact() {
         </Link>
 
         <div className='text-xl'>Buy me a coffee ☕️</div>
-        <p>btc bc1qj0t7sxyuq80gchq2w3d5la9ly5tc7cmwnppfqw</p>
-        <p>evm 0x9Cb226AA0F857F1ED562577e9Fe015d0C45d210a</p>
-        <p>sol Hbt7UoZnZo4iYEoWbVLWrnPMRiYzSK7ACjWKcXhev5CX</p>
+        <div className='flex flex-row items-center justify-center gap-4 text-sm'>
+          <p>btc</p>
+          <p>{btcAddress}</p>
+          <Button variant='ghost' className='cursor-pointer text-sm' onClick={handleCopyBtc}>
+            {isCopiedBtc ? (
+              <span className='flex flex-row items-center gap-2'>
+                <Check />
+                Copied
+              </span>
+            ) : (
+              <span className='flex flex-row items-center gap-2'>
+                <ClipboardCopy />
+                Copy
+              </span>
+            )}
+          </Button>
+        </div>
+        <div className='flex flex-row items-center justify-center gap-4 text-sm'>
+          <p>evm</p>
+          <p>{evmAddress}</p>
+          <Button variant='ghost' className='cursor-pointer text-sm'>
+            Copy
+          </Button>
+        </div>
+        <div className='flex flex-row items-center justify-center gap-4 text-sm'>
+          <p>sol</p>
+          <p>{solAddress}</p>
+          <Button variant='ghost' className='cursor-pointer text-sm'>
+            Copy
+          </Button>
+        </div>
       </div>
     </div>
   )
