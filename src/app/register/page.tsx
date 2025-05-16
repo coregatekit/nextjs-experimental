@@ -41,10 +41,13 @@ export default function Register() {
 
   const [checkedUsername, setCheckedUsername] = useState<string>('')
   const [isCheckUserPassed, setIsCheckUserPassed] = useState<boolean>(false)
+  const [checkedEmail, setCheckedEmail] = useState<string>('')
+  const [isCheckEmailPassed, setIsCheckEmailPassed] = useState<boolean>(false)
   const [captchaCode, setCaptchaCode] = useState<string>(generateCaptcha())
   const captchaCanvasRef = useRef<HTMLCanvasElement>(null)
 
   const username = watch('username')
+  const email = watch('email')
   const verifyCode = watch('verifyCode')
 
   useEffect(() => {
@@ -58,6 +61,13 @@ export default function Register() {
     }
   }, [username, checkedUsername])
 
+  useEffect(() => {
+    if (email !== checkedEmail) {
+      setIsCheckEmailPassed(false)
+      setCheckedEmail('')
+    }
+  }, [email, checkedEmail])
+
   const onSubmit = (data: z.infer<typeof registerFormSchema>) => {
     if (!isCheckUserPassed) {
       setError('username', {
@@ -66,6 +76,18 @@ export default function Register() {
       })
       toast.error('Error', {
         description: RegisterScreenLabel.message.pleaseCheckUser,
+        position: 'top-right',
+      })
+      return
+    }
+
+    if (!isCheckEmailPassed) {
+      setError('email', {
+        type: 'manual',
+        message: RegisterScreenLabel.message.pleaseCheckEmail,
+      })
+      toast.error('Error', {
+        description: RegisterScreenLabel.message.pleaseCheckEmail,
         position: 'top-right',
       })
       return
@@ -136,6 +158,37 @@ export default function Register() {
         })
         toast.error('Error', {
           description: RegisterScreenLabel.message.existUser,
+          position: 'top-right',
+        })
+      },
+    })
+  }
+
+  const handleClickCheckEmail = () => {
+    if (!email) {
+      setError('email', {
+        type: 'manual',
+        message: RegisterScreenLabel.message.emptyFieldEmail,
+      })
+      return
+    }
+
+    check.mutate(`email=${email}`, {
+      onSuccess: () => {
+        clearErrors('email')
+        toast.success('Success', {
+          description: RegisterScreenLabel.message.validEmail,
+          position: 'top-right',
+        })
+        setIsCheckEmailPassed(true)
+      },
+      onError: () => {
+        setError('email', {
+          type: 'manual',
+          message: RegisterScreenLabel.message.existEmail,
+        })
+        toast.error('Error', {
+          description: RegisterScreenLabel.message.existEmail,
           position: 'top-right',
         })
       },
@@ -294,11 +347,14 @@ export default function Register() {
             render={({ field }) => (
               <FormItem className='flex flex-col gap-2'>
                 <FormLabel>{RegisterScreenLabel.email}</FormLabel>
-                <div className='flex'>
+                <div className='flex gap-2'>
                   <Input
                     placeholder={RegisterScreenLabel.placeholder.email}
                     {...field}
                   />
+                  <Button type='button' onClick={handleClickCheckEmail}>
+                    {RegisterScreenLabel.button.checkEmail}
+                  </Button>
                 </div>
                 <FormMessage />
               </FormItem>
