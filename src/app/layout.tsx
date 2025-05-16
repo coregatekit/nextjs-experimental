@@ -4,6 +4,8 @@ import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import NavBar from '@/components/nav/nav-bar'
 import { Toaster } from '@/components/ui/sonner'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import ReactQueryClientProvider from './providers/query-client'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,16 +32,19 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NavBar />
-          <div className='pt-16'>{children}</div>
-          <Toaster />
-        </ThemeProvider>
+        <ReactQueryClientProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NavBar />
+            <div className='pt-16'>{children}</div>
+            <Toaster />
+          </ThemeProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </ReactQueryClientProvider>
       </body>
     </html>
   )
