@@ -1,12 +1,17 @@
 type RegisterForm = {
-  username: string;
-  password: string;
-  confirmPassword: string;
-  sex: string;
-  email: string;
-  verifyCode: string;
+  username: string
+  password: string
+  confirmPassword: string
+  sex: string
+  email: string
+  verifyCode: string
 }
 
-export type {
-  RegisterForm,
+type RegisterRequest = {
+  username: string
+  password: string
+  sex: string
+  email: string
 }
+
+export type { RegisterForm, RegisterRequest }
