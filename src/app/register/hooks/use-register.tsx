@@ -7,6 +7,7 @@ export default function useRegister() {
   const signupRequest = async (data: RegisterRequest) => {
     try {
       const response = await fetch(api, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
