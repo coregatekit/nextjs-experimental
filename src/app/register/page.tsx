@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import type { z } from 'zod'
+import { type z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { registerFormSchema } from '../form-schema/register-form'
@@ -39,6 +39,7 @@ export default function Register() {
   const { signup, check } = useRegister()
   const navigate = useRouter()
 
+  const [checkedUsername, setCheckedUsername] = useState<string>('')
   const [isCheckUserPassed, setIsCheckUserPassed] = useState<boolean>(false)
   const [captchaCode, setCaptchaCode] = useState<string>(generateCaptcha())
   const captchaCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -49,6 +50,13 @@ export default function Register() {
   useEffect(() => {
     drawCaptcha(captchaCode)
   }, [captchaCode])
+
+  useEffect(() => {
+    if (username !== checkedUsername) {
+      setIsCheckUserPassed(false)
+      setCheckedUsername('')
+    }
+  }, [username, checkedUsername])
 
   const onSubmit = (data: z.infer<typeof registerFormSchema>) => {
     if (!isCheckUserPassed) {
