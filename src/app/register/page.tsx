@@ -36,7 +36,7 @@ export default function Register() {
     },
   })
   const { control, handleSubmit, watch, setError, clearErrors, reset } = form
-  const { signup } = useRegister()
+  const { signup, check } = useRegister()
   const navigate = useRouter()
 
   const [isCheckUserPassed, setIsCheckUserPassed] = useState<boolean>(false)
@@ -98,7 +98,7 @@ export default function Register() {
             description: error.message,
             position: 'top-right',
           })
-        }
+        },
       },
     )
   }
@@ -111,23 +111,27 @@ export default function Register() {
       })
       return
     }
-    if (username === 'aerichandesu') {
-      setError('username', {
-        type: 'manual',
-        message: RegisterScreenLabel.message.existUser,
-      })
-      toast.error('Error', {
-        description: RegisterScreenLabel.message.existUser,
-        position: 'top-right',
-      })
-      return
-    }
-    clearErrors('username')
-    toast.success('Success', {
-      description: RegisterScreenLabel.message.validUser,
-      position: 'top-right',
+
+    check.mutate(`username=${username}`, {
+      onSuccess: () => {
+        clearErrors('username')
+        toast.success('Success', {
+          description: RegisterScreenLabel.message.validUser,
+          position: 'top-right',
+        })
+        setIsCheckUserPassed(true)
+      },
+      onError: () => {
+        setError('username', {
+          type: 'manual',
+          message: RegisterScreenLabel.message.existUser,
+        })
+        toast.error('Error', {
+          description: RegisterScreenLabel.message.existUser,
+          position: 'top-right',
+        })
+      },
     })
-    setIsCheckUserPassed(true)
   }
 
   const regenerateCaptcha = () => {
