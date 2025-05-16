@@ -1,15 +1,22 @@
-import { sql } from 'drizzle-orm';
-import { createId } from '@paralleldrive/cuid2';
-import { sqliteTable, text, } from 'drizzle-orm/sqlite-core';
+import { sql } from 'drizzle-orm'
+import { createId } from '@paralleldrive/cuid2'
+import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
-import { EnumSex } from '@/app/enums/sex';
+import { EnumSex } from '@/app/enums/sex'
 
 export const usersTable = sqliteTable('users', {
-  id: text('id').primaryKey().$defaultFn(() => createId()),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => createId()),
   username: text('username').notNull().unique(),
   password: text('password').notNull(),
   sex: text('sex').notNull().default(EnumSex.PreferNotToSay),
   email: text('email').notNull().unique(),
-  createdAt: text('created_at').notNull().default(sql`(current_timestamp)`),
-  updatedAt: text('created_at').notNull().default(sql`(current_timestamp)`).$onUpdate(() => sql`(current_timestamp)`),
-});
+  createdAt: text('created_at')
+    .notNull()
+    .default(sql`(current_timestamp)`),
+  updatedAt: text('created_at')
+    .notNull()
+    .default(sql`(current_timestamp)`)
+    .$onUpdate(() => sql`(current_timestamp)`),
+})

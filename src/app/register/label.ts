@@ -26,7 +26,7 @@ const RegisterScreenLabel = {
     pleaseCheckUser: 'Please verify your username before registering',
     registerSuccess: 'Registration successful!',
     invalidCaptcha: 'Invalid verification code, please try again',
-  }
+  },
 }
 
 export default RegisterScreenLabel

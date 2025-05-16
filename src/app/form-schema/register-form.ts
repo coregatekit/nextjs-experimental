@@ -20,11 +20,13 @@ const registerFormSchema: ZodType<RegisterForm> = z.object({
     .string({ required_error: 'Email is required' })
     .email({ message: 'Invalid email address' })
     .min(1, { message: 'Email is required' }),
-  verifyCode: z.string({
-    required_error: 'Verification code is required',
-  }).min(6, {
-    message: 'Verification code must be at least 6 characters long',
-  }),
+  verifyCode: z
+    .string({
+      required_error: 'Verification code is required',
+    })
+    .min(6, {
+      message: 'Verification code must be at least 6 characters long',
+    }),
 })
 
 export { registerFormSchema }

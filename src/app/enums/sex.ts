@@ -5,6 +5,4 @@ enum EnumSex {
   PreferNotToSay = 'Prefer Not To Say',
 }
 
-export {
-  EnumSex
-}
+export { EnumSex }
