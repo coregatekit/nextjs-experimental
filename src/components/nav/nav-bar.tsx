@@ -8,7 +8,23 @@ export default function NavBar() {
         <Link href='/'>
           <div className='text-2xl font-bold'>Heroes MaSter</div>
         </Link>
-        <div>Settings</div>
+        <div className='flex flex-row gap-4 text-lg font-bold'>
+          <Link href='/register'>
+            <div className=''>Register</div>
+          </Link>
+          <Link href='/member'>
+            <div className=''>Member</div>
+          </Link>
+          <Link href='/shop'>
+            <div className=''>Shop</div>
+          </Link>
+          <Link href='/guide'>
+            <div className=''>Guide</div>
+          </Link>
+          <Link href='/contact'>
+            <div className=''>Contact</div>
+          </Link>
+        </div>
       </div>
     </nav>
   )
