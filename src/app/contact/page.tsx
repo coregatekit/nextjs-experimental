@@ -30,6 +30,14 @@ export default function Contact() {
     }, 2000)
   }
 
+  const handleCopySol = () => {
+    navigator.clipboard.writeText(solAddress)
+    setIsCopiedSol(true)
+    setTimeout(() => {
+      setIsCopiedSol(false)
+    }, 2000)
+  }
+
   return (
     <div className='mt-16 flex w-full items-center justify-center'>
       <div className='flex w-2/3 flex-col items-center justify-center gap-4'>
@@ -99,8 +107,18 @@ export default function Contact() {
         <div className='flex flex-row items-center justify-center gap-4 text-sm'>
           <p>sol</p>
           <p>{solAddress}</p>
-          <Button variant='ghost' className='cursor-pointer text-sm'>
-            Copy
+          <Button variant='ghost' className='cursor-pointer text-sm' onClick={handleCopySol}>
+            {isCopiedSol ? (
+              <span className='flex flex-row items-center gap-2'>
+                <Check />
+                Copied
+              </span>
+            ) : (
+              <span className='flex flex-row items-center gap-2'>
+                <ClipboardCopy />
+                Copy
+              </span>
+            )}
           </Button>
         </div>
       </div>
