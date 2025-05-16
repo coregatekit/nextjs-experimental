@@ -93,6 +93,12 @@ export default function Register() {
           setIsCheckUserPassed(false)
           navigate.replace('/')
         },
+        onError: (error) => {
+          toast.error('Error', {
+            description: error.message,
+            position: 'top-right',
+          })
+        }
       },
     )
   }
