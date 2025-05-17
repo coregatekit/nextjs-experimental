@@ -46,9 +46,12 @@ export default function Register() {
   const { check } = useRegister()
 
   const username = form.watch('username')
+  const email = form.watch('email')
 
   const [checkedUsername, setCheckedUsername] = useState('')
   const [checkedUsernamePassed, setCheckedUsernamePassed] = useState(false)
+  const [checkedEmail, setCheckedEmail] = useState('')
+  const [checkedEmailPassed, setCheckedEmailPassed] = useState(false)
 
   const handleSubmit = (data: SignUpFormSchema) => {
     const formData = new FormData()
@@ -92,7 +95,39 @@ export default function Register() {
     })
   }
 
-  const handleCheckEmail = async () => {}
+  const handleCheckEmail = async () => {
+    if (!email) {
+      form.setError('email', {
+        type: 'manual',
+        message: SignUpScreenLabel.message.emptyFieldEmail,
+      })
+      return
+    }
+
+    check.mutate(`email=${email}`, {
+      onSuccess: () => {
+        form.clearErrors('email')
+        setCheckedEmail(email)
+        setCheckedEmailPassed(true)
+        toast.success('Success', {
+          description: SignUpScreenLabel.message.validEmail,
+          position: 'top-right',
+        })
+      },
+      onError: () => {
+        form.setError('email', {
+          type: 'manual',
+          message: SignUpScreenLabel.message.existEmail,
+        })
+        setCheckedEmail('')
+        setCheckedEmailPassed(false)
+        toast.error('Error', {
+          description: SignUpScreenLabel.message.existEmail,
+          position: 'top-right',
+        })
+      },
+    })
+  }
 
   return (
     <div className='my-16 flex flex-col items-center justify-center'>
