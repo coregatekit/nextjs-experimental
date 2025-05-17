@@ -7,10 +7,18 @@ export const signUpFormSchema = z.object({
     .min(6, { message: 'Username must be at least 6 characters long' }),
   password: z
     .string({ required_error: 'Password is required' })
-    .min(6, { message: 'Password must be at least 6 characters long' }),
+    .min(6, { message: 'Password must be at least 6 characters long' })
+    .regex(/[a-zA-Z]/, {
+      message: 'Password must contain at least one letter',
+    })
+    .regex(/[0-9]/, { message: 'Password must contain at least one number' }),
   confirmPassword: z
     .string({ required_error: 'Confirm password is required' })
-    .min(6, { message: 'Confirm password must be at least 6 characters long' }),
+    .min(6, { message: 'Confirm password must be at least 6 characters long' })
+    .regex(/[a-zA-Z]/, {
+      message: 'Password must contain at least one letter',
+    })
+    .regex(/[0-9]/, { message: 'Password must contain at least one number' }),
   sex: z.enum(
     [
       EnumSex.Male,
@@ -35,3 +43,18 @@ export const signUpFormSchema = z.object({
 })
 
 export type SignUpFormSchema = z.infer<typeof signUpFormSchema>
+export type SignUpActionState = {
+  status: 'idle' | 'success' | 'error'
+  formData: {
+    [k: string]: FormDataEntryValue
+  }
+  message?: string
+  fieldErrors?: {
+    username?: string[]
+    password?: string[]
+    confirmPassword?: string[]
+    sex?: string[]
+    email?: string[]
+    verifyCode?: string[]
+  }
+}
