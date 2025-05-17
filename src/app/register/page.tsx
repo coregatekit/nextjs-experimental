@@ -1,10 +1,9 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { type z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { registerFormSchema } from '../form-schema/register-form'
+import { signUpFormSchema, SignUpFormSchema } from '../definitions/sign-up'
 import {
   Form,
   FormControl,
@@ -24,14 +23,14 @@ import { generateCaptcha } from '@/lib/generators'
 import useRegister from './hooks/use-register'
 
 export default function Register() {
-  const form = useForm<z.infer<typeof registerFormSchema>>({
-    resolver: zodResolver(registerFormSchema),
+  const form = useForm<SignUpFormSchema>({
+    resolver: zodResolver(signUpFormSchema),
     defaultValues: {
       username: '',
       password: '',
       confirmPassword: '',
       email: '',
-      sex: '',
+      sex: EnumSex.None,
       verifyCode: '',
     },
   })
@@ -68,7 +67,7 @@ export default function Register() {
     }
   }, [email, checkedEmail])
 
-  const onSubmit = (data: z.infer<typeof registerFormSchema>) => {
+  const onSubmit = (data: SignUpFormSchema) => {
     if (!isCheckUserPassed) {
       setError('username', {
         type: 'manual',

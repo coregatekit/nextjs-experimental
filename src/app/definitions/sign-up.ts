@@ -1,8 +1,7 @@
-import { z, type ZodType } from 'zod'
-import type { RegisterForm } from '../types/register-form'
+import { z } from 'zod'
 import { EnumSex } from '../enums/sex'
 
-const registerFormSchema: ZodType<RegisterForm> = z.object({
+export const signUpFormSchema = z.object({
   username: z
     .string({ required_error: 'Username is required' })
     .min(6, { message: 'Username must be at least 6 characters long' }),
@@ -13,7 +12,13 @@ const registerFormSchema: ZodType<RegisterForm> = z.object({
     .string({ required_error: 'Confirm password is required' })
     .min(6, { message: 'Confirm password must be at least 6 characters long' }),
   sex: z.enum(
-    [EnumSex.Male, EnumSex.Female, EnumSex.Other, EnumSex.PreferNotToSay],
+    [
+      EnumSex.Male,
+      EnumSex.Female,
+      EnumSex.Other,
+      EnumSex.PreferNotToSay,
+      EnumSex.None,
+    ],
     { required_error: 'Sex is required', message: 'Please select your sex' },
   ),
   email: z
@@ -29,4 +34,4 @@ const registerFormSchema: ZodType<RegisterForm> = z.object({
     }),
 })
 
-export { registerFormSchema }
+export type SignUpFormSchema = z.infer<typeof signUpFormSchema>
