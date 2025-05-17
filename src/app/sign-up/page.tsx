@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useActionState } from 'react'
+import React, { useActionState, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   SignUpActionState,
@@ -22,6 +22,8 @@ import { signUp } from '../actions/sign-up'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import useRegister from '../register/hooks/use-register'
+import { toast } from 'sonner'
 
 export default function Register() {
   const form = useForm<SignUpFormSchema>({
@@ -41,6 +43,12 @@ export default function Register() {
     formData: new FormData(),
   }
   const [state, action, pending] = useActionState(signUp, initialState)
+  const { check } = useRegister()
+
+  const username = form.watch('username')
+
+  const [checkedUsername, setCheckedUsername] = useState('')
+  const [checkedUsernamePassed, setCheckedUsernamePassed] = useState(false)
 
   const handleSubmit = (data: SignUpFormSchema) => {
     const formData = new FormData()
@@ -50,7 +58,39 @@ export default function Register() {
     action(formData)
   }
 
-  const handleCheckUser = async () => {}
+  const handleCheckUser = async () => {
+    if (!username) {
+      form.setError('username', {
+        type: 'manual',
+        message: SignUpScreenLabel.message.emptyFieldUsername,
+      })
+      return
+    }
+
+    check.mutate(`username=${username}`, {
+      onSuccess: () => {
+        form.clearErrors('username')
+        setCheckedUsername(username)
+        setCheckedUsernamePassed(true)
+        toast.success('Success', {
+          description: SignUpScreenLabel.message.validUser,
+          position: 'top-right',
+        })
+      },
+      onError: () => {
+        form.setError('username', {
+          type: 'manual',
+          message: SignUpScreenLabel.message.existUser,
+        })
+        setCheckedUsername('')
+        setCheckedUsernamePassed(false)
+        toast.error('Error', {
+          description: SignUpScreenLabel.message.existUser,
+          position: 'top-right',
+        })
+      },
+    })
+  }
 
   const handleCheckEmail = async () => {}
 
