@@ -12,6 +12,7 @@ import { EnumSex } from '../enums/sex'
 import { SignUpScreenLabel } from './label'
 import { Form } from '@/components/ui/form'
 import { signUp } from '../actions/sign-up'
+import { Button } from '@/components/ui/button'
 
 export default function Register() {
   const form = useForm<SignUpFormSchema>({
@@ -31,14 +32,14 @@ export default function Register() {
     formData: new FormData(),
   }
   const [state, action, pending] = useActionState(signUp, initialState)
-  
+
   const handleSubmit = (data: SignUpFormSchema) => {
-    const formData = new FormData();
+    const formData = new FormData()
     Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value.toString());
-    });
-    action(formData);
-  };
+      formData.append(key, value.toString())
+    })
+    action(formData)
+  }
 
   return (
     <div className='my-16 flex flex-col items-center justify-center'>
@@ -47,7 +48,15 @@ export default function Register() {
 
       {/* Sign-up form */}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)}></form>
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className='mt-12 flex w-96 flex-col gap-4'
+        >
+          {/* Submit Button */}
+          <Button type='submit' className='w-full cursor-pointer'>
+            {SignUpScreenLabel.button.signUp}
+          </Button>
+        </form>
       </Form>
     </div>
   )

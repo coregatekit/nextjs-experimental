@@ -17,7 +17,7 @@ export const SignUpScreenLabel = {
   button: {
     checkUser: 'Check Username',
     checkEmail: 'Check Email',
-    register: 'Register',
+    signUp: 'Sign Up',
     refreshCaptcha: 'Refresh',
   },
   message: {
