@@ -1,6 +1,11 @@
 'use client'
 
-import React, { useActionState, useEffect, useState } from 'react'
+import React, {
+  useActionState,
+  useEffect,
+  useState,
+  useTransition,
+} from 'react'
 import { useForm } from 'react-hook-form'
 import {
   SignUpActionState,
@@ -41,7 +46,8 @@ export default function Register() {
     status: 'idle',
     formData: new FormData(),
   }
-  const [state, action, pending] = useActionState(signUp, initialState)
+  const [state, action] = useActionState(signUp, initialState)
+  const [pending, startTransition] = useTransition()
   const { check } = useRegister()
 
   const username = form.watch('username')
@@ -81,12 +87,14 @@ export default function Register() {
       })
       return
     }
-    
+
     const formData = new FormData()
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value.toString())
     })
-    action(formData)
+    startTransition(() => {
+      action(formData)
+    })
   }
 
   const handleCheckUser = async () => {
