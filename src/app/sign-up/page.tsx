@@ -67,6 +67,21 @@ export default function Register() {
   }, [checkedEmail, email])
 
   const handleSubmit = (data: SignUpFormSchema) => {
+    if (!checkedUsernamePassed) {
+      form.setError('username', {
+        type: 'manual',
+        message: SignUpScreenLabel.message.pleaseCheckUser,
+      })
+      return
+    }
+    if (!checkedEmailPassed) {
+      form.setError('email', {
+        type: 'manual',
+        message: SignUpScreenLabel.message.pleaseCheckEmail,
+      })
+      return
+    }
+    
     const formData = new FormData()
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value.toString())
