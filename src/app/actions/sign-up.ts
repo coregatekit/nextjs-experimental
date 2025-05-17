@@ -17,6 +17,7 @@ export async function signUp(
   const parsedForm = signUpFormSchema.safeParse(form)
   if (!parsedForm.success) {
     return {
+      formData,
       status: 'error',
       fieldErrors: parsedForm.error.flatten().fieldErrors,
     }
@@ -29,6 +30,7 @@ export async function signUp(
 
   if (username) {
     return {
+      formData,
       status: 'error',
       fieldErrors: {
         username: ['Username already exists'],
@@ -43,6 +45,7 @@ export async function signUp(
 
   if (email) {
     return {
+      formData,
       status: 'error',
       fieldErrors: {
         email: ['Email already exists'],
@@ -67,6 +70,7 @@ export async function signUp(
 
   if (!user) {
     return {
+      formData: new FormData(),
       status: 'error',
       message: 'Error creating user',
     }
