@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useActionState, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import React, { useActionState, useEffect, useState } from 'react'
+import { set, useForm } from 'react-hook-form'
 import {
   SignUpActionState,
   signUpFormSchema,
@@ -52,6 +52,20 @@ export default function Register() {
   const [checkedUsernamePassed, setCheckedUsernamePassed] = useState(false)
   const [checkedEmail, setCheckedEmail] = useState('')
   const [checkedEmailPassed, setCheckedEmailPassed] = useState(false)
+
+  useEffect(() => {
+    if (checkedUsername && checkedUsername !== username) {
+      setCheckedUsernamePassed(false)
+      setCheckedUsername('')
+    }
+  }, [checkedUsername, username])
+
+  useEffect(() => {
+    if (checkedEmail && checkedEmail !== email) {
+      setCheckedEmailPassed(false)
+      setCheckedEmail('')
+    }
+  }, [checkedEmail, email])
 
   const handleSubmit = (data: SignUpFormSchema) => {
     const formData = new FormData()
