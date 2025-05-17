@@ -9,6 +9,9 @@ export default function NavBar() {
           <div className='text-2xl font-bold'>Heroes MaSter</div>
         </Link>
         <div className='flex flex-row gap-4 text-lg font-bold'>
+          <Link href='/application'>
+            <div className=''>Start</div>
+          </Link>
           <Link href='/register'>
             <div className=''>Register</div>
           </Link>
