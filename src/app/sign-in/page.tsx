@@ -5,7 +5,13 @@ import { SignInScreenLabel } from './label'
 import { useForm } from 'react-hook-form'
 import { signInFormSchema, SingInFormSchema } from '../definitions/sign-in'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 
 export default function SignIn() {
@@ -40,6 +46,23 @@ export default function SignIn() {
                 <Input
                   placeholder={SignInScreenLabel.username.placeholder}
                   {...field}
+                />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Password */}
+          <FormField
+            control={form.control}
+            name='password'
+            render={({ field }) => (
+              <FormItem className='flex flex-col gap-2'>
+                <FormLabel>{SignInScreenLabel.password.label}</FormLabel>
+                <Input
+                  placeholder={SignInScreenLabel.password.placeholder}
+                  {...field}
+                  type='password'
                 />
                 <FormMessage />
               </FormItem>
