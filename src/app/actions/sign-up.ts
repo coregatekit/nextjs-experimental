@@ -12,6 +12,7 @@ export async function signUp(
   formData: FormData,
 ): Promise<SignUpActionState> {
   const form = Object.fromEntries(formData.entries())
+  console.log('Triggered signUp action with form data:', form)
 
   const parsedForm = signUpFormSchema.safeParse(form)
   if (!parsedForm.success) {

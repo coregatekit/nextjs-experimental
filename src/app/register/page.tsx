@@ -31,7 +31,6 @@ export default function Register() {
       confirmPassword: '',
       email: '',
       sex: EnumSex.None,
-      verifyCode: '',
     },
   })
   const { control, handleSubmit, watch, setError, clearErrors, reset } = form
@@ -47,7 +46,6 @@ export default function Register() {
 
   const username = watch('username')
   const email = watch('email')
-  const verifyCode = watch('verifyCode')
 
   useEffect(() => {
     drawCaptcha(captchaCode)
@@ -89,19 +87,6 @@ export default function Register() {
         description: RegisterScreenLabel.message.pleaseCheckEmail,
         position: 'top-right',
       })
-      return
-    }
-
-    if (verifyCode !== captchaCode) {
-      setError('verifyCode', {
-        type: 'manual',
-        message: RegisterScreenLabel.message.invalidCaptcha,
-      })
-      toast.error('Error', {
-        description: RegisterScreenLabel.message.invalidCaptcha,
-        position: 'top-right',
-      })
-      regenerateCaptcha()
       return
     }
 
@@ -374,24 +359,6 @@ export default function Register() {
               {RegisterScreenLabel.button.refreshCaptcha}
             </Button>
           </div>
-
-          {/* Verify Code */}
-          <FormField
-            control={control}
-            name='verifyCode'
-            render={({ field }) => (
-              <FormItem className='flex flex-col gap-2'>
-                <FormLabel>{RegisterScreenLabel.verifyCode}</FormLabel>
-                <div className='flex'>
-                  <Input
-                    placeholder={RegisterScreenLabel.placeholder.verifyCode}
-                    {...field}
-                  />
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
 
           {/* Submit Button */}
           <Button type='submit' className='w-full'>

@@ -33,13 +33,6 @@ export const signUpFormSchema = z.object({
     .string({ required_error: 'Email is required' })
     .email({ message: 'Invalid email address' })
     .min(1, { message: 'Email is required' }),
-  verifyCode: z
-    .string({
-      required_error: 'Verification code is required',
-    })
-    .min(6, {
-      message: 'Verification code must be at least 6 characters long',
-    }),
 })
 
 export type SignUpFormSchema = z.infer<typeof signUpFormSchema>
@@ -53,6 +46,5 @@ export type SignUpActionState = {
     confirmPassword?: string[]
     sex?: string[]
     email?: string[]
-    verifyCode?: string[]
   }
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useActionState, useEffect, useState } from 'react'
-import { set, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import {
   SignUpActionState,
   signUpFormSchema,
@@ -34,7 +34,6 @@ export default function Register() {
       confirmPassword: '',
       sex: EnumSex.None,
       email: '',
-      verifyCode: '',
     },
   })
 
@@ -171,7 +170,7 @@ export default function Register() {
                     {SignUpScreenLabel.button.checkUser}
                   </Button>
                 </div>
-                <FormMessage />
+                <FormMessage>{state.fieldErrors?.username}</FormMessage>
               </FormItem>
             )}
           />
@@ -191,7 +190,7 @@ export default function Register() {
                     disabled={pending}
                   />
                 </div>
-                <FormMessage />
+                <FormMessage>{state.fieldErrors?.password}</FormMessage>
               </FormItem>
             )}
           />
@@ -211,7 +210,7 @@ export default function Register() {
                     disabled={pending}
                   />
                 </div>
-                <FormMessage />
+                <FormMessage>{state.fieldErrors?.confirmPassword}</FormMessage>
               </FormItem>
             )}
           />
@@ -266,7 +265,7 @@ export default function Register() {
                     </RadioGroup>
                   </FormControl>
                 </div>
-                <FormMessage />
+                <FormMessage>{state.fieldErrors?.sex}</FormMessage>
               </FormItem>
             )}
           />
