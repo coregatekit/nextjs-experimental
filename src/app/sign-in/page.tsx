@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 
 export default function SignIn() {
   const form = useForm<SingInFormSchema>({
@@ -68,6 +69,11 @@ export default function SignIn() {
               </FormItem>
             )}
           />
+
+          {/* Submit Button */}
+          <Button type='submit' className='w-full cursor-pointer'>
+            {SignInScreenLabel.submit.label}
+          </Button>
         </form>
       </Form>
     </div>
