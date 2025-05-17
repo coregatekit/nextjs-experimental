@@ -8,7 +8,7 @@ import argon2 from 'argon2'
 import { redirect } from 'next/navigation'
 
 export async function signUp(
-  _initialState: SignUpActionState,
+  _initialState: SignUpActionState | undefined,
   formData: FormData,
 ): Promise<SignUpActionState> {
   const form = Object.fromEntries(formData.entries())
