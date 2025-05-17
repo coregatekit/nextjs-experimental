@@ -12,7 +12,7 @@ export default function NavBar() {
           <Link href='/application'>
             <div className=''>Start</div>
           </Link>
-          <Link href='/register'>
+          <Link href='/sign-up'>
             <div className=''>Register</div>
           </Link>
           <Link href='/member'>
