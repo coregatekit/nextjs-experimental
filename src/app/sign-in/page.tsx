@@ -1,13 +1,9 @@
 'use client'
 
-import React, { useActionState, useTransition } from 'react'
+import React from 'react'
 import { SignInScreenLabel } from './label'
 import { useForm } from 'react-hook-form'
-import {
-  SignInActionState,
-  signInFormSchema,
-  SingInFormSchema,
-} from '../definitions/sign-in'
+import { signInFormSchema, SingInFormSchema } from '../definitions/sign-in'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Form,
@@ -18,7 +14,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { signIn } from '@/app/actions/sign-in'
+import { signIn as signInAction } from 'next-auth/react'
 
 export default function SignIn() {
   const form = useForm<SingInFormSchema>({
@@ -29,20 +25,14 @@ export default function SignIn() {
     },
   })
 
-  const initialState: SignInActionState = {
-    status: 'idle',
-    formData: new FormData(),
-  }
-  const [state, action] = useActionState(signIn, initialState)
-  const [pending, startTransition] = useTransition()
-
   const onSubmit = (data: SingInFormSchema) => {
     const formData = new FormData()
     formData.append('username', data.username)
     formData.append('password', data.password)
 
-    startTransition(() => {
-      action(formData)
+    signInAction('credentials', {
+      username: data.username,
+      password: data.password,
     })
   }
 
@@ -68,7 +58,7 @@ export default function SignIn() {
                   placeholder={SignInScreenLabel.username.placeholder}
                   {...field}
                 />
-                <FormMessage>{state.fieldErrors?.username}</FormMessage>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -85,17 +75,13 @@ export default function SignIn() {
                   {...field}
                   type='password'
                 />
-                <FormMessage>{state.fieldErrors?.password}</FormMessage>
+                <FormMessage />
               </FormItem>
             )}
           />
 
           {/* Submit Button */}
-          <Button
-            type='submit'
-            className='w-full cursor-pointer'
-            disabled={pending}
-          >
+          <Button type='submit' className='w-full cursor-pointer'>
             {SignInScreenLabel.submit.label}
           </Button>
         </form>
