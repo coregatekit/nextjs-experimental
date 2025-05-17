@@ -8,7 +8,7 @@ import argon2 from 'argon2'
 import { redirect } from 'next/navigation'
 
 export async function signUp(
-  _initialState: SignUpActionState | undefined,
+  _initialState: SignUpActionState,
   formData: FormData,
 ): Promise<SignUpActionState> {
   const form = Object.fromEntries(formData.entries())
@@ -17,7 +17,6 @@ export async function signUp(
   if (!parsedForm.success) {
     return {
       status: 'error',
-      formData: form,
       fieldErrors: parsedForm.error.flatten().fieldErrors,
     }
   }
@@ -30,7 +29,6 @@ export async function signUp(
   if (username) {
     return {
       status: 'error',
-      formData: form,
       fieldErrors: {
         username: ['Username already exists'],
       },
@@ -45,7 +43,6 @@ export async function signUp(
   if (email) {
     return {
       status: 'error',
-      formData: form,
       fieldErrors: {
         email: ['Email already exists'],
       },
@@ -70,7 +67,6 @@ export async function signUp(
   if (!user) {
     return {
       status: 'error',
-      formData: form,
       message: 'Error creating user',
     }
   }

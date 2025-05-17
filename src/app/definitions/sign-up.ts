@@ -45,9 +45,7 @@ export const signUpFormSchema = z.object({
 export type SignUpFormSchema = z.infer<typeof signUpFormSchema>
 export type SignUpActionState = {
   status: 'idle' | 'success' | 'error'
-  formData: {
-    [k: string]: FormDataEntryValue
-  }
+  formData?: FormData
   message?: string
   fieldErrors?: {
     username?: string[]

@@ -2,7 +2,11 @@
 
 import React, { useActionState } from 'react'
 import { useForm } from 'react-hook-form'
-import { signUpFormSchema, SignUpFormSchema } from '../definitions/sign-up'
+import {
+  SignUpActionState,
+  signUpFormSchema,
+  SignUpFormSchema,
+} from '../definitions/sign-up'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EnumSex } from '../enums/sex'
 import { SignUpScreenLabel } from './label'
@@ -22,7 +26,19 @@ export default function Register() {
     },
   })
 
-  const [state, action, pending] = useActionState(signUp, undefined)
+  const initialState: SignUpActionState = {
+    status: 'idle',
+    formData: new FormData(),
+  }
+  const [state, action, pending] = useActionState(signUp, initialState)
+  
+  const handleSubmit = (data: SignUpFormSchema) => {
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value.toString());
+    });
+    action(formData);
+  };
 
   return (
     <div className='my-16 flex flex-col items-center justify-center'>
@@ -31,7 +47,7 @@ export default function Register() {
 
       {/* Sign-up form */}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(action)}></form>
+        <form onSubmit={form.handleSubmit(handleSubmit)}></form>
       </Form>
     </div>
   )
