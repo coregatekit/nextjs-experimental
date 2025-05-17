@@ -30,7 +30,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import useRegister from '../register/hooks/use-register'
 import { toast } from 'sonner'
 
-export default function Register() {
+export default function SingUp() {
   const form = useForm<SignUpFormSchema>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
