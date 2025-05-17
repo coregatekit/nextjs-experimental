@@ -151,6 +151,7 @@ export default function Register() {
                   <Input
                     placeholder={SignUpScreenLabel.placeholder.username}
                     {...field}
+                    disabled={pending}
                   />
                   <Button type='button' onClick={handleCheckUser}>
                     {SignUpScreenLabel.button.checkUser}
@@ -173,6 +174,7 @@ export default function Register() {
                     type='password'
                     placeholder={SignUpScreenLabel.placeholder.password}
                     {...field}
+                    disabled={pending}
                   />
                 </div>
                 <FormMessage />
@@ -192,6 +194,7 @@ export default function Register() {
                     type='password'
                     placeholder={SignUpScreenLabel.placeholder.confirmPassword}
                     {...field}
+                    disabled={pending}
                   />
                 </div>
                 <FormMessage />
@@ -212,6 +215,7 @@ export default function Register() {
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                       className='flex flex-row'
+                      disabled={pending}
                     >
                       <FormItem className='flex'>
                         <FormControl>
@@ -264,6 +268,7 @@ export default function Register() {
                   <Input
                     placeholder={SignUpScreenLabel.placeholder.email}
                     {...field}
+                    disabled={pending}
                   />
                   <Button type='button' onClick={handleCheckEmail}>
                     {SignUpScreenLabel.button.checkEmail}
