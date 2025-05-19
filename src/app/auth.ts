@@ -1,8 +1,8 @@
 import argon2 from 'argon2'
 import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
-import db from './db'
-import { usersTable } from './db/schema'
+import db from '../db'
+import { usersTable } from '../db/schema'
 import { eq } from 'drizzle-orm'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
