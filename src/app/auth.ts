@@ -4,8 +4,19 @@ import Credentials from 'next-auth/providers/credentials'
 import db from '../db'
 import { usersTable } from '../db/schema'
 import { eq } from 'drizzle-orm'
+import { authConfig } from './auth.config'
+import { signInFormSchema } from './definitions/sign-in'
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+async function findUser(username: string) {
+  return db
+    .select()
+    .from(usersTable)
+    .where(eq(usersTable.username, username))
+    .limit(1)
+}
+
+export const { signIn, signOut, auth } = NextAuth({
+  ...authConfig,
   providers: [
     Credentials({
       credentials: {
@@ -13,35 +24,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        let user = null
+        const parsedCredentials = signInFormSchema.safeParse(credentials)
+        if (!parsedCredentials.success) return null
 
-        const findUser = await db
-          .select()
-          .from(usersTable)
-          .where(eq(usersTable.username, credentials?.username as string))
-          .limit(1)
+        const foundUser = await findUser(
+          parsedCredentials.data?.username as string,
+        )
+        if (foundUser.length === 0) return null
 
-        if (findUser.length === 0) {
-          throw new Error('User not found')
-        }
-
-        const userData = findUser[0]
-        const comparePassword = await argon2.verify(
+        const userData = foundUser[0]
+        const passwordMatch = await argon2.verify(
           userData.password,
           credentials?.password as string,
         )
-
-        if (comparePassword) {
-          user = {
-            id: userData.id,
-            username: userData.username,
-            email: userData.email,
-          }
-        } else {
-          throw new Error('Invalid password')
-        }
-
-        return user
+        if (passwordMatch) return userData
+        return null
       },
     }),
   ],
