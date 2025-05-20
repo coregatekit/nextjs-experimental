@@ -5,6 +5,7 @@ import { SignInScreenLabel } from './label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useSearchParams } from 'next/navigation'
+import { LogIn } from 'lucide-react'
 
 export default function SignIn() {
   const searchParams = useSearchParams()
@@ -36,9 +37,10 @@ export default function SignIn() {
           />
         </div>
 
-        <Input type='hidden' name='redirectTo' value={callbackUrl}/>
+        <Input type='hidden' name='redirectTo' value={callbackUrl} />
 
         <Button type='submit' className='w-full cursor-pointer'>
+          <LogIn />
           {SignInScreenLabel.submit.label}
         </Button>
       </form>
