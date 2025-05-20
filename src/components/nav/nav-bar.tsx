@@ -1,20 +1,42 @@
+'use client'
+
 import Link from 'next/link'
-import React from 'react'
+import React, { useTransition } from 'react'
+import { useSession } from 'next-auth/react'
+import { Button } from '../ui/button'
+import { LogOut } from 'lucide-react'
+import { signOutAction } from '@/app/actions/sign-out'
 
 export default function NavBar() {
+  const { data: session, status } = useSession()
+  const [isPending, startTransition] = useTransition()
+
+  const handleSignOut = () => {
+    startTransition(async () => {
+      await signOutAction()
+    })
+  }
+
   return (
     <nav className='relative'>
       <div className='bg-secondary dark:bg-primary-foreground fixed flex h-16 w-full flex-row items-center justify-between p-8'>
         <Link href='/'>
-          <div className='text-2xl font-bold'>Heroes MaSter</div>
+          <div className='text-2xl font-bold'>
+            Heroes MaSter{' '}
+            {status === 'authenticated' && <span>{session.user?.name}</span>}
+          </div>
         </Link>
         <div className='flex flex-row gap-4 text-lg font-bold'>
           <Link href='/application'>
-            <div className=''>Start</div>
+            <div className=''>
+              {status === 'authenticated' ? 'Application' : 'Start'}
+            </div>
           </Link>
-          <Link href='/sign-up'>
-            <div className=''>Register</div>
-          </Link>
+          {status === 'unauthenticated' && (
+            <Link href='/sign-up'>
+              <div className=''>Register</div>
+            </Link>
+          )}
           <Link href='/member'>
             <div className=''>Member</div>
           </Link>
@@ -27,6 +49,17 @@ export default function NavBar() {
           <Link href='/contact'>
             <div className=''>Contact</div>
           </Link>
+          {status === 'authenticated' && (
+            <Button
+              variant={'ghost'}
+              onClick={handleSignOut}
+              className='flex items-center gap-2 cursor-pointer'
+              disabled={isPending}
+            >
+              <LogOut />
+              Sign Out
+            </Button>
+          )}
         </div>
       </div>
     </nav>
