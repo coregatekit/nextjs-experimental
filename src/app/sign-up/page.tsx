@@ -116,7 +116,16 @@ export default function SingUp() {
           position: 'top-right',
         })
       },
-      onError: () => {
+      onError: (error) => {
+        if (error instanceof Error) {
+          if (error.message !== 'An error occurred while signing up') {
+            form.setError('username', {
+              type: 'manual',
+              message: error.message,
+            })
+            return
+          }
+        }
         form.setError('username', {
           type: 'manual',
           message: SignUpScreenLabel.message.existUser,
@@ -150,7 +159,16 @@ export default function SingUp() {
           position: 'top-right',
         })
       },
-      onError: () => {
+      onError: (error) => {
+        if (error instanceof Error) {
+          if (error.message !== 'An error occurred while signing up') {
+            form.setError('email', {
+              type: 'manual',
+              message: error.message,
+            })
+            return
+          }
+        }
         form.setError('email', {
           type: 'manual',
           message: SignUpScreenLabel.message.existEmail,
