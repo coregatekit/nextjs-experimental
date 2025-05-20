@@ -9,13 +9,13 @@ export const authConfig = {
   callbacks: {
     authorized: async ({ auth, request: { nextUrl } }) => {
       const isLoggedIn = auth?.user
-      const isOnAppPage = nextUrl.pathname.startsWith('/application')
+      const isOnAppPage = nextUrl.pathname.startsWith('/')
 
       if (isOnAppPage) {
         if (isLoggedIn) return true // user is logged in and on app page
         return false // redirect to sign-in page
       } else if (isLoggedIn) {
-        const callbackUrl = nextUrl.searchParams.get('callbackUrl') || '/application'
+        const callbackUrl = nextUrl.searchParams.get('callbackUrl') || '/'
         return NextResponse.redirect(new URL(callbackUrl, nextUrl))
       }
       return true // user is logged in and on sign-in page

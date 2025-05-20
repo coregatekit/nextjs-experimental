@@ -1,11 +1,11 @@
 import argon2 from 'argon2'
 import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
-import db from '../db'
-import { usersTable } from '../db/schema'
+import db from './db'
+import { usersTable } from './db/schema'
 import { eq } from 'drizzle-orm'
 import { authConfig } from './auth.config'
-import { signInFormSchema } from './definitions/sign-in'
+import { signInFormSchema } from './app/definitions/sign-in'
 
 async function findUser(username: string) {
   try {
