@@ -8,9 +8,8 @@ export const config = {
   // matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
   // Define routes that require authentication
   matcher: [
-    '/((?!api|_next/static|_next/image|.*\\.png$).*)',
     '/application/:path*',
     '/member/:path*',
-    '/shop/:path*'
+    '/shop/:path*',
   ],
 }
