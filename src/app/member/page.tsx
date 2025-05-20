@@ -1,5 +1,9 @@
 import React from 'react'
 
 export default function Member() {
-  return <div>Member</div>
+  return (
+    <div className='mt-64 flex flex-col items-center justify-center'>
+      <span>Coming soon...</span>
+    </div>
+  )
 }
