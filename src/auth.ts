@@ -22,7 +22,7 @@ async function findUser(username: string) {
   }
 }
 
-export const { signIn, signOut, auth } = NextAuth({
+export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
