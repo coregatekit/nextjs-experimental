@@ -19,7 +19,7 @@ export default function NavBar() {
 
   return (
     <nav className='relative'>
-      <div className='bg-secondary dark:bg-primary-foreground fixed flex h-16 w-full flex-row items-center justify-between p-8'>
+      <div className='bg-secondary dark:bg-primary-foreground fixed flex h-16 w-full flex-row items-center justify-between p-8 shadow-md/10 dark:shadow-white/10'>
         <Link href='/'>
           <div className='text-2xl font-bold'>
             Heroes MaSter{' '}
@@ -53,7 +53,7 @@ export default function NavBar() {
             <Button
               variant={'ghost'}
               onClick={handleSignOut}
-              className='flex items-center gap-2 cursor-pointer'
+              className='flex cursor-pointer items-center gap-2'
               disabled={isPending}
             >
               <LogOut />
