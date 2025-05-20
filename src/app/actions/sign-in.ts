@@ -1,9 +1,12 @@
 'use server'
 
-import { AuthError } from 'next-auth';
-import { signIn } from 'next-auth/react';
+import { AuthError } from 'next-auth'
+import { signIn } from 'next-auth/react'
 
-export async function authenticate(prevState: string | undefined, formData: FormData) {
+export async function authenticate(
+  _prevState: string | undefined,
+  formData: FormData,
+) {
   try {
     await signIn('credentials', {
       username: formData.get('username'),
