@@ -17,6 +17,12 @@ export async function POST(request: NextRequest) {
     }
 
     const checkAvailability = async (field: 'username' | 'email', value: string) => {
+      if (value.includes(' ')) {
+        return NextResponse.json(
+          { message: `${field.charAt(0).toUpperCase() + field.slice(1)} cannot contain spaces` },
+          { status: 400 }
+        )
+      }
       const user = await db
         .select()
         .from(usersTable)
