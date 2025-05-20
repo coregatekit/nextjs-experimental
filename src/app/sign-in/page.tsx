@@ -44,55 +44,6 @@ export default function SignIn() {
           {SignInScreenLabel.submit.label}
         </Button>
       </form>
-
-      {/* Sign In form */}
-      {/* <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className='mt-12 flex w-96 flex-col gap-4'
-        >
-          <FormField
-            control={form.control}
-            name='username'
-            render={({ field }) => (
-              <FormItem className='flex flex-col gap-2'>
-                <FormLabel>{SignInScreenLabel.username.label}</FormLabel>
-                <Input
-                  placeholder={SignInScreenLabel.username.placeholder}
-                  {...field}
-                  disabled={pending}
-                />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name='password'
-            render={({ field }) => (
-              <FormItem className='flex flex-col gap-2'>
-                <FormLabel>{SignInScreenLabel.password.label}</FormLabel>
-                <Input
-                  placeholder={SignInScreenLabel.password.placeholder}
-                  {...field}
-                  type='password'
-                  disabled={pending}
-                />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Button
-            type='submit'
-            className='w-full cursor-pointer'
-            disabled={pending}
-          >
-            {SignInScreenLabel.submit.label}
-          </Button>
-        </form>
-      </Form> */}
     </div>
   )
 }
