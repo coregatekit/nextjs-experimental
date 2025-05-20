@@ -8,11 +8,18 @@ import { authConfig } from './auth.config'
 import { signInFormSchema } from './definitions/sign-in'
 
 async function findUser(username: string) {
-  return db
-    .select()
-    .from(usersTable)
-    .where(eq(usersTable.username, username))
-    .limit(1)
+  try {
+    const user = await db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.username, username))
+      .limit(1)
+
+    return user[0]
+  } catch (error) {
+    console.error('Error finding user:', error)
+    throw new Error('Failed to find user')
+  }
 }
 
 export const { signIn, signOut, auth } = NextAuth({
@@ -27,17 +34,15 @@ export const { signIn, signOut, auth } = NextAuth({
         const parsedCredentials = signInFormSchema.safeParse(credentials)
         if (!parsedCredentials.success) return null
 
-        const foundUser = await findUser(
+        const user = await findUser(
           parsedCredentials.data?.username as string,
         )
-        if (foundUser.length === 0) return null
 
-        const userData = foundUser[0]
         const passwordMatch = await argon2.verify(
-          userData.password,
+          user.password,
           credentials?.password as string,
         )
-        if (passwordMatch) return userData
+        if (passwordMatch) return user
         return null
       },
     }),
