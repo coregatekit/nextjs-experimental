@@ -2,52 +2,47 @@
 
 import React from 'react'
 import { SignInScreenLabel } from './label'
-import { useForm } from 'react-hook-form'
-import { signInFormSchema, SingInFormSchema } from '../definitions/sign-in'
-import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { signIn as signInAction } from 'next-auth/react'
 
 export default function SignIn() {
-  const form = useForm<SingInFormSchema>({
-    resolver: zodResolver(signInFormSchema),
-    defaultValues: {
-      username: '',
-      password: '',
-    },
-  })
-
-  const onSubmit = (data: SingInFormSchema) => {
-    const formData = new FormData()
-    formData.append('username', data.username)
-    formData.append('password', data.password)
-
-    signInAction('credentials', {
-      username: data.username,
-      password: data.password,
-    })
-  }
-
   return (
     <div className='my-16 flex flex-col items-center justify-center'>
       <div className='text-xl font-bold'>{SignInScreenLabel.title}</div>
       <div className='text-lg'>{SignInScreenLabel.subtitle}</div>
 
+      <form className='mt-12 flex w-96 flex-col gap-4'>
+        <div className='flex flex-col gap-2'>
+          <label htmlFor='username'>{SignInScreenLabel.username.label}</label>
+          <Input
+            id='username-input'
+            name='username'
+            type='text'
+            placeholder={SignInScreenLabel.username.placeholder}
+          />
+        </div>
+
+        <div className='flex flex-col gap-2'>
+          <label htmlFor='password'>{SignInScreenLabel.password.label}</label>
+          <Input
+            id='password-input'
+            name='password'
+            type='password'
+            placeholder={SignInScreenLabel.password.placeholder}
+          />
+        </div>
+
+        <Button type='submit' className='w-full cursor-pointer'>
+          {SignInScreenLabel.submit.label}
+        </Button>
+      </form>
+
       {/* Sign In form */}
-      <Form {...form}>
+      {/* <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className='mt-12 flex w-96 flex-col gap-4'
         >
-          {/* Username */}
           <FormField
             control={form.control}
             name='username'
@@ -57,13 +52,13 @@ export default function SignIn() {
                 <Input
                   placeholder={SignInScreenLabel.username.placeholder}
                   {...field}
+                  disabled={pending}
                 />
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          {/* Password */}
           <FormField
             control={form.control}
             name='password'
@@ -74,18 +69,22 @@ export default function SignIn() {
                   placeholder={SignInScreenLabel.password.placeholder}
                   {...field}
                   type='password'
+                  disabled={pending}
                 />
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          {/* Submit Button */}
-          <Button type='submit' className='w-full cursor-pointer'>
+          <Button
+            type='submit'
+            className='w-full cursor-pointer'
+            disabled={pending}
+          >
             {SignInScreenLabel.submit.label}
           </Button>
         </form>
-      </Form>
+      </Form> */}
     </div>
   )
 }
