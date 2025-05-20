@@ -1,17 +1,14 @@
 'use server'
 
+import { signIn } from '@/app/auth'
 import { AuthError } from 'next-auth'
-import { signIn } from 'next-auth/react'
 
 export async function authenticate(
   _prevState: string | undefined,
   formData: FormData,
 ) {
   try {
-    await signIn('credentials', {
-      username: formData.get('username'),
-      password: formData.get('password'),
-    })
+    await signIn('credentials', formData)
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
