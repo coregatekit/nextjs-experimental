@@ -1,19 +1,28 @@
 'use client'
 
 import Link from 'next/link'
-import React, { useTransition } from 'react'
+import React, { useEffect, useTransition } from 'react'
 import { useSession } from 'next-auth/react'
 import { Button } from '../ui/button'
 import { LogOut } from 'lucide-react'
 import { signOutAction } from '@/app/actions/sign-out'
+import { usePathname, useRouter } from 'next/navigation'
 
 export default function NavBar() {
-  const { data: session, status } = useSession()
+  const { data: session, status, update } = useSession()
   const [isPending, startTransition] = useTransition()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  useEffect(() => {
+    update()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname])
 
   const handleSignOut = () => {
     startTransition(async () => {
       await signOutAction()
+      router.refresh()
     })
   }
 
