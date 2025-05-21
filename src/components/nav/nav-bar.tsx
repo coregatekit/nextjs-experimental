@@ -45,22 +45,10 @@ export default function NavBar() {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuLink
-                  href='/application'
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                  )}
-                >
-                  {status === 'authenticated' ? 'Application' : 'Start'}
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
                 {status === 'unauthenticated' && (
                   <NavigationMenuLink
                     href='/sign-up'
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                    )}
+                    className={cn(navigationMenuTriggerStyle())}
                   >
                     Register
                   </NavigationMenuLink>
@@ -68,10 +56,16 @@ export default function NavBar() {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
+                  href='/application'
+                  className={cn(navigationMenuTriggerStyle())}
+                >
+                  {status === 'authenticated' ? 'Application' : 'Start'}
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink
                   href='/member'
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                  )}
+                  className={cn(navigationMenuTriggerStyle())}
                 >
                   Member
                 </NavigationMenuLink>
@@ -79,9 +73,7 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   href='/shop'
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                  )}
+                  className={cn(navigationMenuTriggerStyle())}
                 >
                   Shop
                 </NavigationMenuLink>
@@ -89,9 +81,7 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   href='/guide'
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                  )}
+                  className={cn(navigationMenuTriggerStyle())}
                 >
                   Guide
                 </NavigationMenuLink>
@@ -99,9 +89,7 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   href='/contact'
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                  )}
+                  className={cn(navigationMenuTriggerStyle())}
                 >
                   Contact
                 </NavigationMenuLink>
@@ -110,9 +98,7 @@ export default function NavBar() {
               {status === 'authenticated' && (
                 <NavigationMenuItem>
                   <NavigationMenuLink
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                    )}
+                    className={cn(navigationMenuTriggerStyle())}
                     onClick={handleSignOut}
                   >
                     Sign Out
