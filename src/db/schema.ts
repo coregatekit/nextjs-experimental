@@ -32,6 +32,8 @@ export const jobsTable = sqliteTable('jobs', {
   mp: integer('mp').notNull(),
   attack: integer('attack').notNull(),
   defense: integer('defense').notNull(),
+  magic: integer('magic').notNull(),
+  magicDefense: integer('magic_defense').notNull(),
   evasion: integer('evasion').notNull(),
   createdAt: text('created_at')
     .notNull()
