@@ -8,6 +8,13 @@
       "when": 1746786411478,
       "tag": "0000_create_table_users",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1747807389786,
+      "tag": "0001_same_talisman",
+      "breakpoints": true
     }
   ]
 }
