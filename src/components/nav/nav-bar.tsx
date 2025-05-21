@@ -3,14 +3,20 @@
 import Link from 'next/link'
 import React, { useEffect, useTransition } from 'react'
 import { useSession } from 'next-auth/react'
-import { Button } from '../ui/button'
-import { LogOut } from 'lucide-react'
 import { signOutAction } from '@/app/actions/sign-out'
 import { usePathname, useRouter } from 'next/navigation'
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from '../ui/navigation-menu'
+import { cn } from '@/lib/utils'
 
 export default function NavBar() {
   const { data: session, status, update } = useSession()
-  const [isPending, startTransition] = useTransition()
+  const [, startTransition] = useTransition()
   const router = useRouter()
   const pathname = usePathname()
 
@@ -28,7 +34,7 @@ export default function NavBar() {
 
   return (
     <nav className='relative'>
-      <div className='bg-secondary dark:bg-primary-foreground fixed flex h-16 w-full flex-row items-center justify-between p-8 shadow-md/10 dark:shadow-white/10'>
+      <div className='fixed flex h-16 w-full flex-row items-center justify-between p-8 shadow-md/10 dark:shadow-white/10'>
         <Link href='/'>
           <div className='text-2xl font-bold'>
             Heroes MaSter{' '}
@@ -36,39 +42,85 @@ export default function NavBar() {
           </div>
         </Link>
         <div className='flex flex-row gap-4 text-lg font-bold'>
-          <Link href='/application'>
-            <div className=''>
-              {status === 'authenticated' ? 'Application' : 'Start'}
-            </div>
-          </Link>
-          {status === 'unauthenticated' && (
-            <Link href='/sign-up'>
-              <div className=''>Register</div>
-            </Link>
-          )}
-          <Link href='/member'>
-            <div className=''>Member</div>
-          </Link>
-          <Link href='/shop'>
-            <div className=''>Shop</div>
-          </Link>
-          <Link href='/guide'>
-            <div className=''>Guide</div>
-          </Link>
-          <Link href='/contact'>
-            <div className=''>Contact</div>
-          </Link>
-          {status === 'authenticated' && (
-            <Button
-              variant={'ghost'}
-              onClick={handleSignOut}
-              className='flex cursor-pointer items-center gap-2'
-              disabled={isPending}
-            >
-              <LogOut />
-              Sign Out
-            </Button>
-          )}
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  href='/application'
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                  )}
+                >
+                  {status === 'authenticated' ? 'Application' : 'Start'}
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                {status === 'unauthenticated' && (
+                  <NavigationMenuLink
+                    href='/sign-up'
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                    )}
+                  >
+                    Register
+                  </NavigationMenuLink>
+                )}
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  href='/member'
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                  )}
+                >
+                  Member
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  href='/shop'
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                  )}
+                >
+                  Shop
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  href='/guide'
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                  )}
+                >
+                  Guide
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  href='/contact'
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                  )}
+                >
+                  Contact
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+
+              {status === 'authenticated' && (
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                    )}
+                    onClick={handleSignOut}
+                  >
+                    Sign Out
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              )}
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
       </div>
     </nav>
