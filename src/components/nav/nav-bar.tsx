@@ -98,7 +98,7 @@ export default function NavBar() {
               {status === 'authenticated' && (
                 <NavigationMenuItem>
                   <NavigationMenuLink
-                    className={cn(navigationMenuTriggerStyle())}
+                    className={cn(navigationMenuTriggerStyle(), 'cursor-pointer')}
                     onClick={handleSignOut}
                   >
                     Sign Out
