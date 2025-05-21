@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Swordsman",
+    "description": "A sword is a melee weapon used for slashing and thrusting.",
+    "weapon": "Sword",
+    "hp": 100,
+    "mp": 100,
+    "attack": 10,
+    "defense": 6,
+    "magic": 4,
+    "magicDefense": 2,
+    "evasion": 4
+  },
+  {
+    "name": "Paladin",
+    "description": "A paladin is a holy knight who fights for justice and righteousness.",
+    "weapon": "Sword with shield",
+    "hp": 120,
+    "mp": 100,
+    "attack": 6,
+    "defense": 12,
+    "magic": 6,
+    "magicDefense": 6,
+    "evasion": 2
+  },
+  {
+    "name": "Ranger",
+    "description": "A ranger is a skilled archer and tracker, adept at surviving in the wild.",
+    "weapon": "Bow",
+    "hp": 80,
+    "mp": 100,
+    "attack": 14,
+    "defense": 4,
+    "magic": 8,
+    "magicDefense": 4,
+    "evasion": 8
+  },
+  {
+    "name": "Mage",
+    "description": "A mage is a master of elemental magic, capable of casting powerful spells.",
+    "weapon": "Staff",
+    "hp": 80,
+    "mp": 140,
+    "attack": 4,
+    "defense": 4,
+    "magic": 14,
+    "magicDefense": 8,
+    "evasion": 6
+  }
+]
