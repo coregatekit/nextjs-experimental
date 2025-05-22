@@ -1,19 +1,19 @@
 import db from '@/db'
-import { jobsTable } from '@/db/schema'
+import { classesTable } from '@/db/schema'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
   try {
-    const jobs = await db.select().from(jobsTable).execute()
+    const classes = await db.select().from(classesTable).execute()
 
-    if (jobs.length === 0) {
-      return NextResponse.json({ message: 'No jobs found' }, { status: 404 })
+    if (classes.length === 0) {
+      return NextResponse.json({ message: 'No classes found' }, { status: 404 })
     }
 
     return NextResponse.json(
       {
-        message: 'Jobs fetched successfully',
-        data: jobs,
+        message: 'Classes fetched successfully',
+        data: classes,
       },
       { status: 200 },
     )
