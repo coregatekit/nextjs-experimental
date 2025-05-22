@@ -27,6 +27,8 @@ async function seedJobs() {
     })
   }
 
+  console.log('Clearing jobs table...')
+  await db.delete(jobsTable).execute()
   console.log('Seeding jobs...')
   await db.insert(jobsTable).values(data).onConflictDoNothing()
   console.log('Jobs seeded successfully!')
