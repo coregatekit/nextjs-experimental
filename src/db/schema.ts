@@ -15,7 +15,7 @@ export const usersTable = sqliteTable('users', {
   createdAt: text('created_at')
     .notNull()
     .default(sql`(current_timestamp)`),
-  updatedAt: text('created_at')
+  updatedAt: text('updated_at')
     .notNull()
     .default(sql`(current_timestamp)`)
     .$onUpdate(() => sql`(current_timestamp)`),
@@ -38,7 +38,7 @@ export const jobsTable = sqliteTable('jobs', {
   createdAt: text('created_at')
     .notNull()
     .default(sql`(current_timestamp)`),
-  updatedAt: text('created_at')
+  updatedAt: text('updated_at')
     .notNull()
     .default(sql`(current_timestamp)`)
     .$onUpdate(() => sql`(current_timestamp)`),
@@ -62,7 +62,7 @@ export const honorClassesTable = sqliteTable('honor_classes', {
   createdAt: text('created_at')
     .notNull()
     .default(sql`(current_timestamp)`),
-  updatedAt: text('created_at')
+  updatedAt: text('updated_at')
     .notNull()
     .default(sql`(current_timestamp)`)
     .$onUpdate(() => sql`(current_timestamp)`),
