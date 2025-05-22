@@ -4,14 +4,14 @@ import * as classesData from './data/classes.json'
 import db from '.'
 import { eq } from 'drizzle-orm'
 
-function main() {
+async function main() {
   console.log('Seeding database...')
-  seedJobs()
-  seedClasses()
+  await seedJobs()
+  await seedClasses()
   console.log('Seeding completed!')
 }
 
-async function seedJobs() {
+async function seedJobs(): Promise<void> {
   const data: (typeof jobsTable.$inferInsert)[] = []
 
   console.log('Preparing seed jobs data...')
@@ -37,7 +37,7 @@ async function seedJobs() {
   console.log('Jobs seeded successfully!')
 }
 
-async function seedClasses() {
+async function seedClasses(): Promise<void> {
   const data: (typeof classesTable.$inferInsert)[] = []
 
   console.log('Preparing seed classes data...')
