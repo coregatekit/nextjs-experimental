@@ -1,8 +1,8 @@
 [
   {
-    "name": "Swordsman",
-    "description": "A sword is a melee weapon used for slashing and thrusting.",
-    "weapon": "Sword",
+    "name": "Barbarian",
+    "description": "A barbarian is a fierce warrior known for their brute strength and ferocity.",
+    "weapon": "Great Sword",
     "hp": 100,
     "mp": 100,
     "attack": 10,
@@ -14,7 +14,7 @@
   {
     "name": "Paladin",
     "description": "A paladin is a holy knight who fights for justice and righteousness.",
-    "weapon": "Sword with shield",
+    "weapon": "Blade and Shield",
     "hp": 120,
     "mp": 100,
     "attack": 6,
