@@ -73,3 +73,43 @@ export const classesTable = sqliteTable('classes', {
       onUpdate: 'cascade',
     }),
 })
+
+export const charactersTable = sqliteTable('characters', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  name: text('name').notNull(),
+  honorPoints: integer('honor_points').notNull(),
+  hp: integer('hp').notNull(),
+  mp: integer('mp').notNull(),
+  attack: integer('attack').notNull(),
+  defense: integer('defense').notNull(),
+  magic: integer('magic').notNull(),
+  magicDefense: integer('magic_defense').notNull(),
+  evasion: integer('evasion').notNull(),
+  createdAt: text('created_at')
+    .notNull()
+    .default(sql`(current_timestamp)`),
+  updatedAt: text('updated_at')
+    .notNull()
+    .default(sql`(current_timestamp)`)
+    .$onUpdate(() => sql`(current_timestamp)`),
+  userId: text('user_id')
+    .notNull()
+    .references(() => usersTable.id, {
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    }),
+  classId: text('class_id')
+    .notNull()
+    .references(() => classesTable.id, {
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    }),
+  jobId: text('job_id')
+    .notNull()
+    .references(() => jobsTable.id, {
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    }),
+})
