@@ -1,11 +1,19 @@
 import db from '@/db'
 import { classesTable } from '@/db/schema'
-import { NextResponse } from 'next/server'
+import { eq } from 'drizzle-orm'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const jobId = searchParams.get('job_id')
   try {
-    const classes = await db.select().from(classesTable).execute()
+    const stmt = db.select().from(classesTable)
 
+    if (jobId) {
+      stmt.where(eq(classesTable.jobId, jobId))
+    }
+
+    const classes = await stmt.execute()
     if (classes.length === 0) {
       return NextResponse.json({ message: 'No classes found' }, { status: 404 })
     }
