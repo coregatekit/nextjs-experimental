@@ -44,7 +44,7 @@ export const jobsTable = sqliteTable('jobs', {
     .$onUpdate(() => sql`(current_timestamp)`),
 })
 
-export const honorClassesTable = sqliteTable('honor_classes', {
+export const classesTable = sqliteTable('classes', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => createId()),
