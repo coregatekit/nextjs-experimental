@@ -43,3 +43,33 @@ export const jobsTable = sqliteTable('jobs', {
     .default(sql`(current_timestamp)`)
     .$onUpdate(() => sql`(current_timestamp)`),
 })
+
+export const honorClassesTable = sqliteTable('honor_classes', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  name: text('name').notNull(),
+  classLevel: integer('class_level').notNull(),
+  requiredHonor: integer('required_honor').notNull(),
+  description: text('description').notNull(),
+  hp: integer('hp').notNull(),
+  mp: integer('mp').notNull(),
+  attack: integer('attack').notNull(),
+  defense: integer('defense').notNull(),
+  magic: integer('magic').notNull(),
+  magicDefense: integer('magic_defense').notNull(),
+  evasion: integer('evasion').notNull(),
+  createdAt: text('created_at')
+    .notNull()
+    .default(sql`(current_timestamp)`),
+  updatedAt: text('created_at')
+    .notNull()
+    .default(sql`(current_timestamp)`)
+    .$onUpdate(() => sql`(current_timestamp)`),
+  jobId: text('job_id')
+    .notNull()
+    .references(() => jobsTable.id, {
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    }),
+})
